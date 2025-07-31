@@ -2,8 +2,8 @@ import os
 
 
 class ConfigFiles:
-    from event_controller import EventController
-    from config_element import ConfigElement
+    from .event_controller import EventController
+    from .config_element import ConfigElement
 
     def __init__(self, *,
                  config_name: str,
@@ -16,11 +16,11 @@ class ConfigFiles:
         self.__work_directory: str = work_directory
         self.__name: str = name
 
-        from config_element import ConfigElement
+        from .config_element import ConfigElement
         self.__config_elements: dict[str, ConfigElement] = config_elements
         self.__new_config_elements: dict[str, ConfigElement] = new_config_elements
 
-        from event_controller import EventController
+        from .event_controller import EventController
         self.__event_controller: EventController = event_controller
 
     def file_is_exist(self) -> bool:
@@ -36,8 +36,8 @@ class ConfigFiles:
             self.__event_controller.create_event(event_type=2, message=f'Config file [{self.__name}] created]')
 
     def read_config_file(self):
-        from config_element import ConfigElement
-        from data_types import ConfigDataTypes
+        from .config_element import ConfigElement
+        from .data_types import ConfigDataTypes
 
         if self.file_is_exist() is False:
             raise FileNotFoundError(f'Config file [{self.__name}] not found.')
@@ -90,7 +90,7 @@ class ConfigFiles:
                            current_element_name: str,
                            current_element_value: str,
                            new_config_elements: dict[str, ConfigElement]) -> bool:
-        from data_types import ConfigDataTypesEnum
+        from .data_types import ConfigDataTypesEnum
 
 
         if dependency_element_name is None or dependency_element_name.strip() == '':

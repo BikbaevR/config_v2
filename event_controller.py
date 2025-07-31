@@ -1,4 +1,4 @@
-from config_event import ConfigEvent
+from .config_event import ConfigEvent
 
 
 class EventController:

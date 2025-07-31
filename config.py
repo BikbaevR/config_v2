@@ -1,9 +1,9 @@
 
 from typing import Any, Optional, Callable
-from config_element import ConfigElement
-from config_event import ConfigEvent
-from data_types import ConfigDataTypesEnum
-from event_controller import EventController
+from .config_element import ConfigElement
+from .config_event import ConfigEvent
+from .data_types import ConfigDataTypesEnum
+from .event_controller import EventController
 
 
 class Config:
@@ -16,7 +16,7 @@ class Config:
 
         self.__event_controller: EventController = EventController()
 
-        from config_files import ConfigFiles
+        from .config_files import ConfigFiles
         self.__config_file: ConfigFiles = ConfigFiles(
             config_name=self.__name,
             work_directory=self.__work_directory,

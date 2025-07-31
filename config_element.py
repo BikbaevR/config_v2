@@ -1,6 +1,6 @@
 from typing import Optional, Any
 
-from config_files import ConfigFiles
+from .config_files import ConfigFiles
 
 
 class ConfigElement:
@@ -24,7 +24,7 @@ class ConfigElement:
         self.__dependency: str = dependency
         self.__config_file: ConfigFiles = config_file
 
-        from data_types import ConfigDataTypes
+        from .data_types import ConfigDataTypes
         self.__data_types: ConfigDataTypes = ConfigDataTypes()
         self.__check_data_type(self.__data_type)
 
@@ -35,7 +35,7 @@ class ConfigElement:
             self.__data_type = data_type
 
     def __convert_to_data_type(self, value: Optional[Any] = None):
-        from data_types import ConfigDataTypesEnum
+        from .data_types import ConfigDataTypesEnum
 
         if (value is None or len(value) == 0  or value == 'None') and self.__required is False:
             return None
