@@ -1,8 +1,11 @@
 from typing import Optional, Any
 
+from config_files import ConfigFiles
+
 
 class ConfigElement:
-    from data_types import ConfigDataTypesEnum
+    from .data_types import ConfigDataTypesEnum
+    from .config_files import ConfigFiles
     def __init__(self, *,
                  config_name: str,
                  name: str,
@@ -10,7 +13,8 @@ class ConfigElement:
                  value: Optional[Any] = None,
                  required: bool = True,
                  description: Optional[Any] = None,
-                 dependency: Optional[str] = None):
+                 dependency: Optional[str] = None,
+                 config_file: ConfigFiles):
         self.__config_name: str = config_name
         self.__name: str = name
         self.__data_type: str = data_type.value
@@ -18,6 +22,7 @@ class ConfigElement:
         self.__value: Optional[Any] = self.__convert_to_data_type(value)
         self.__description: Optional[str] = description
         self.__dependency: str = dependency
+        self.__config_file: ConfigFiles = config_file
 
         from data_types import ConfigDataTypes
         self.__data_types: ConfigDataTypes = ConfigDataTypes()
@@ -35,8 +40,9 @@ class ConfigElement:
         if (value is None or len(value) == 0  or value == 'None') and self.__required is False:
             return None
 
-        if (value is None or len(value) == 0 or value == 'None') and self.__required is True:
-            raise TypeError(f'Value for element [{self.__name}] is required.')
+        if self.__config_file.file_is_exist() is True:
+            if (value is None or len(value) == 0 or value == 'None') and self.__required is True:
+                raise TypeError(f'Value for element [{self.__name}] is required.')
 
         try:
             if self.__data_type == ConfigDataTypesEnum.STRING.value:

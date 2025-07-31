@@ -42,7 +42,8 @@ class Config:
                 value=value,
                 required=required,
                 description=description,
-                dependency=dependency
+                dependency=dependency,
+                config_file=self.__config_file
             )
 
             self.__event_controller.create_event(event_type=1, message=f'Element "{name}" created')
